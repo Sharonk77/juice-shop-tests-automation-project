@@ -42,4 +42,15 @@ class APItests(unittest.TestCase):
         result = self.registration_endpoint.send_post_request(data=self.valid_data)
         self.assertNotEqual(201, result.status_code, result.content)
 
+    def test_registration_with_wrong_password_null(self):
+        self.valid_data["password"] = None
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
+
+    def test_registration_with_wrong_password_empty_string(self):
+        self.valid_data["password"] = ''
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
+
+
 
