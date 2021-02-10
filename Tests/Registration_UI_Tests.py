@@ -85,3 +85,12 @@ class UItests(unittest.TestCase):
         self.register_page_handler.click_register_button(wait_to_be_clickable=False)
         url = self.register_page_handler.get_current_url()
         self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
+
+    def test_registration_with_not_matching_repeated_password(self):
+        self.register_page_handler.set_email()
+        self.register_page_handler.set_password(password_repeat='77777777')
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.set_security_answer()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        error_message = self.register_page_handler.get_error_message('Passwords do not match')
+        self.assertEqual(error_message, 'Passwords do not match')
