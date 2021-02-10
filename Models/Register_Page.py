@@ -54,8 +54,9 @@ class RegisterPage:
         security_question_answer = self.browser.find_element(*self.SECURITY_QUESTION_ANSWER)
         security_question_answer.send_keys(answer if answer is not None else "Movie")
 
-    def click_register_button(self):
-        WebDriverWait(self.browser, 100).until(EC.element_to_be_clickable((self.REGISTER_BUTTON)))
+    def click_register_button(self,wait_to_be_clickable=True):
+        if wait_to_be_clickable is True:
+            WebDriverWait(self.browser, 100).until(EC.element_to_be_clickable((self.REGISTER_BUTTON)))
         register_button = self.browser.find_element(*self.REGISTER_BUTTON)
         register_button.click()
 
