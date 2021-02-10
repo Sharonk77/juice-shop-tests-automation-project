@@ -15,3 +15,8 @@ class APItests(unittest.TestCase):
         self.valid_data["email"] = "test@gmail.com"
         result = self.registration_endpoint.send_post_request(data=self.valid_data)
         self.assertNotEqual(201, result.status_code, result.content)
+
+    def test_registration_with_wrong_email_null(self):
+        self.valid_data["email"] = None
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
