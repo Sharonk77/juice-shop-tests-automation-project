@@ -113,3 +113,10 @@ class UItests(unittest.TestCase):
         error_messages = self.register_page_handler.get_all_error_messages()
         self.assertIn('Please repeat your password.', error_messages)
 
+    def test_registration_with_wrong_security_answer_null(self):
+        self.register_page_handler.set_email()
+        self.register_page_handler.set_password()
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        url = self.register_page_handler.get_current_url()
+        self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
