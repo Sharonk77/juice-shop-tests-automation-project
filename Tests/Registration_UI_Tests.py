@@ -104,3 +104,12 @@ class UItests(unittest.TestCase):
         error_message = self.register_page_handler.get_error_message('Please provide a password.')
         self.assertEqual(error_message, 'Please provide a password.')
 
+    def test_registration_with_wrong_repeated_password_empty_string(self):
+        self.register_page_handler.set_email()
+        self.register_page_handler.set_password(password='', password_repeat='')
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.set_security_answer()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        error_messages = self.register_page_handler.get_all_error_messages()
+        self.assertIn('Please repeat your password.', error_messages)
+
