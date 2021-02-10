@@ -62,3 +62,7 @@ class APItests(unittest.TestCase):
         result = self.registration_endpoint.send_post_request(data=self.valid_data)
         self.assertNotEqual(201, result.status_code, result.content)
 
+    def test_registration_with_wrong_security_answer_empty_string(self):
+        self.valid_data["securityAnswer"] = ''
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
