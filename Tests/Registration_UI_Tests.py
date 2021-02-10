@@ -17,7 +17,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password()
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=True)
         WebDriverWait(self.register_page_handler.browser, 100).until(EC.url_contains('login'))
         url = self.register_page_handler.get_current_url()
         self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/login')
@@ -35,7 +35,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password()
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         WebDriverWait(self.register_page_handler.browser, 100).until(EC.url_contains('register'))
         url = self.register_page_handler.get_current_url()
         self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
@@ -45,7 +45,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password()
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         error_message = self.register_page_handler.get_error_message('Please provide an email address.')
         self.assertEqual(error_message, 'Please provide an email address.')
 
@@ -54,7 +54,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password()
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         error_message = self.register_page_handler.get_error_message('Email address is not valid.')
         self.assertEqual(error_message, 'Email address is not valid.')
 
@@ -64,7 +64,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password(password=invalid_password, password_repeat=invalid_password)
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         error_message = self.register_page_handler.get_error_message('Password must be 5-20 characters long.')
         self.assertEqual(error_message, 'Password must be 5-20 characters long.')
 
@@ -74,7 +74,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password(password=invalid_password, password_repeat=invalid_password)
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         error_message = self.register_page_handler.get_error_message('Password must be 5-20 characters long.')
         self.assertEqual(error_message, 'Password must be 5-20 characters long.')
 
@@ -82,7 +82,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_email()
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         url = self.register_page_handler.get_current_url()
         self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
 
@@ -91,7 +91,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password(password_repeat='77777777')
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         error_message = self.register_page_handler.get_error_message('Passwords do not match')
         self.assertEqual(error_message, 'Passwords do not match')
 
@@ -100,7 +100,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password(password='', password_repeat='')
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         error_message = self.register_page_handler.get_error_message('Please provide a password.')
         self.assertEqual(error_message, 'Please provide a password.')
 
@@ -109,7 +109,7 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_password(password='', password_repeat='')
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         error_messages = self.register_page_handler.get_all_error_messages()
         self.assertIn('Please repeat your password.', error_messages)
 
@@ -117,6 +117,6 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_email()
         self.register_page_handler.set_password()
         self.register_page_handler.set_security_question()
-        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        self.register_page_handler.click_register_button()
         url = self.register_page_handler.get_current_url()
         self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
