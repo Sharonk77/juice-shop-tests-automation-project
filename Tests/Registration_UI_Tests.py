@@ -94,3 +94,13 @@ class UItests(unittest.TestCase):
         self.register_page_handler.click_register_button(wait_to_be_clickable=False)
         error_message = self.register_page_handler.get_error_message('Passwords do not match')
         self.assertEqual(error_message, 'Passwords do not match')
+
+    def test_registration_with_wrong_password_empty_string(self):
+        self.register_page_handler.set_email()
+        self.register_page_handler.set_password(password='', password_repeat='')
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.set_security_answer()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        error_message = self.register_page_handler.get_error_message('Please provide a password.')
+        self.assertEqual(error_message, 'Please provide a password.')
+
