@@ -15,6 +15,7 @@ class RegisterPage:
     SECURITY_QUESTION_MOVIE_OPTION = (By.CLASS_NAME, 'mat-option-text')
     SECURITY_QUESTION_ANSWER = (By.ID, 'securityAnswerControl')
     REGISTER_BUTTON = (By.ID, 'registerButton')
+    TRANSLATE_POP_UP_MESSAGE = (By.ID, 'cdk-overlay-0')
 
     def __init__(self):
         self.browser = Browser.get_browser()
@@ -24,10 +25,10 @@ class RegisterPage:
             '//*[@id="mat-dialog-0"]/app-welcome-banner/div/div[2]/button[2]')
         if len(pop_up_message) >= 1:
             pop_up_message[0].click()
+        WebDriverWait(self.browser, 20).until(EC.invisibility_of_element_located((self.TRANSLATE_POP_UP_MESSAGE)))
 
     def kill_browser(self):
         Browser().kill_browser()
-
 
     def set_email(self, email=None):
         email_field = self.browser.find_element(*self.EMAIL_FIELD)
@@ -54,6 +55,7 @@ class RegisterPage:
         security_question_answer.send_keys(answer if answer is not None else "Movie")
 
     def click_register_button(self):
+        WebDriverWait(self.browser, 100).until(EC.element_to_be_clickable((self.REGISTER_BUTTON)))
         register_button = self.browser.find_element(*self.REGISTER_BUTTON)
         register_button.click()
 
@@ -72,3 +74,4 @@ class RegisterPage:
     def get_api_validation_error(self, error_message):
         WebDriverWait(self.browser, 20).until(EC.text_to_be_present_in_element(self.VALIDATION_ERROR_CLASS_NAME, error_message))
         return self.browser.find_element(*self.VALIDATION_ERROR_CLASS_NAME).text
+
