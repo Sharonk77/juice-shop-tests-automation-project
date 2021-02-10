@@ -52,5 +52,8 @@ class APItests(unittest.TestCase):
         result = self.registration_endpoint.send_post_request(data=self.valid_data)
         self.assertNotEqual(201, result.status_code, result.content)
 
-
+    def test_registration_with_wrong_repeated_password(self):
+        self.valid_data["passwordRepeat"] = "11111111"
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
 
