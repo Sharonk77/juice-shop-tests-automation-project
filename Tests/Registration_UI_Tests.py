@@ -30,3 +30,12 @@ class UItests(unittest.TestCase):
         self.register_page_handler.click_register_button()
         error_message = self.register_page_handler.get_api_validation_error('Email must be unique')
         self.assertEqual(error_message, 'Email must be unique')
+
+    def test_registration_with_wrong_email_null(self):
+        self.register_page_handler.set_password()
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.set_security_answer()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        WebDriverWait(self.register_page_handler.browser, 100).until(EC.url_contains('register'))
+        url = self.register_page_handler.get_current_url()
+        self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
