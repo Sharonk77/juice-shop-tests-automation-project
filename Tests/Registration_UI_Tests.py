@@ -39,3 +39,12 @@ class UItests(unittest.TestCase):
         WebDriverWait(self.register_page_handler.browser, 100).until(EC.url_contains('register'))
         url = self.register_page_handler.get_current_url()
         self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
+
+    def test_registration_with_wrong_email_empty_string(self):
+        self.register_page_handler.set_email(email='')
+        self.register_page_handler.set_password()
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.set_security_answer()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        error_message = self.register_page_handler.get_error_message('Please provide an email address.')
+        self.assertEqual(error_message, 'Please provide an email address.')
