@@ -2,7 +2,7 @@ import unittest
 from Models.Register_Page import RegisterPage
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
+import uuid
 
 class UItests(unittest.TestCase):
 
@@ -48,3 +48,12 @@ class UItests(unittest.TestCase):
         self.register_page_handler.click_register_button(wait_to_be_clickable=False)
         error_message = self.register_page_handler.get_error_message('Please provide an email address.')
         self.assertEqual(error_message, 'Please provide an email address.')
+
+    def test_registration_with_wrong_email_not_valid(self):
+        self.register_page_handler.set_email(email=f"{uuid.uuid4().hex}#gmail.com")
+        self.register_page_handler.set_password()
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.set_security_answer()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        error_message = self.register_page_handler.get_error_message('Email address is not valid.')
+        self.assertEqual(error_message, 'Email address is not valid.')
