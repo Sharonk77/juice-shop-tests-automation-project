@@ -37,4 +37,9 @@ class APItests(unittest.TestCase):
         result = self.registration_endpoint.send_post_request(data=self.valid_data)
         self.assertNotEqual(201, result.status_code, result.content)
 
+    def test_registration_with_wrong_password_21_digits(self):
+        self.valid_data["password"] = '1' * 21
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
+
 
