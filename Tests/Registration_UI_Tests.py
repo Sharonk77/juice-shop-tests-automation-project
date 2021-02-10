@@ -57,3 +57,13 @@ class UItests(unittest.TestCase):
         self.register_page_handler.click_register_button(wait_to_be_clickable=False)
         error_message = self.register_page_handler.get_error_message('Email address is not valid.')
         self.assertEqual(error_message, 'Email address is not valid.')
+
+    def test_registration_with_wrong_password_4_digits(self):
+        invalid_password = "1" * 4
+        self.register_page_handler.set_email()
+        self.register_page_handler.set_password(password=invalid_password, password_repeat=invalid_password)
+        self.register_page_handler.set_security_question()
+        self.register_page_handler.set_security_answer()
+        self.register_page_handler.click_register_button(wait_to_be_clickable=False)
+        error_message = self.register_page_handler.get_error_message('Password must be 5-20 characters long.')
+        self.assertEqual(error_message, 'Password must be 5-20 characters long.')
