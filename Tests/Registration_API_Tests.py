@@ -1,6 +1,7 @@
 import unittest
 from Repositories.API.Register_endpoint import RegisterEndpoint
 from Models.User_Data import UserData
+import uuid
 
 class APItests(unittest.TestCase):
     def setUp(self):
@@ -20,3 +21,14 @@ class APItests(unittest.TestCase):
         self.valid_data["email"] = None
         result = self.registration_endpoint.send_post_request(data=self.valid_data)
         self.assertNotEqual(201, result.status_code, result.content)
+
+    def test_registration_with_wrong_email_empty_string(self):
+        self.valid_data["email"] = ''
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
+
+    def test_registration_with_wrong_email_not_valid(self):
+        self.valid_data["email"] = f"{uuid.uuid4().hex}#gmail.com"
+        result = self.registration_endpoint.send_post_request(data=self.valid_data)
+        self.assertNotEqual(201, result.status_code, result.content)
+
