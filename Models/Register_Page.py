@@ -76,3 +76,6 @@ class RegisterPage:
         WebDriverWait(self.browser, 20).until(EC.text_to_be_present_in_element(self.VALIDATION_ERROR_CLASS_NAME, error_message))
         return self.browser.find_element(*self.VALIDATION_ERROR_CLASS_NAME).text
 
+    def wait_for_url_to_contain_login(self):
+        WebDriverWait(self.browser, 100).until(EC.url_contains('login'))
+
