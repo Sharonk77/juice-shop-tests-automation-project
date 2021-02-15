@@ -36,7 +36,6 @@ class UItests(unittest.TestCase):
         self.register_page_handler.set_security_question()
         self.register_page_handler.set_security_answer()
         self.register_page_handler.click_register_button()
-        WebDriverWait(self.register_page_handler.browser, 100).until(EC.url_contains('register'))
         url = self.register_page_handler.get_current_url()
         self.assertEqual(url, 'https://sharonkrochkovich.herokuapp.com/#/register')
 
