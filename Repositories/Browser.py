@@ -1,7 +1,9 @@
 from selenium import webdriver
 
+
 class Browser:
     driver = None
+
     @classmethod
     def get_browser(cls):
         if cls.driver is None:
@@ -15,4 +17,3 @@ class Browser:
         if cls.driver is not None:
             cls.driver.close()
             cls.driver = None
-

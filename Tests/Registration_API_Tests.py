@@ -3,7 +3,8 @@ from Repositories.API.Register_endpoint import RegisterEndpoint
 from Models.User_Data import UserData
 import uuid
 
-class APItests(unittest.TestCase):
+
+class ApiTests(unittest.TestCase):
     def setUp(self):
         self.registration_endpoint = RegisterEndpoint()
         self.valid_data = UserData().user_data_generator()
