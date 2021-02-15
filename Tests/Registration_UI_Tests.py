@@ -1,10 +1,9 @@
 import unittest
 from Models.Register_Page import RegisterPage
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 import uuid
 
-class UItests(unittest.TestCase):
+
+class UiTests(unittest.TestCase):
 
     def setUp(self):
         self.register_page_handler = RegisterPage()

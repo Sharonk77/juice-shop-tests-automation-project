@@ -54,7 +54,7 @@ class RegisterPage:
         security_question_answer = self.browser.find_element(*self.SECURITY_QUESTION_ANSWER)
         security_question_answer.send_keys(answer if answer is not None else "Movie")
 
-    def click_register_button(self,wait_to_be_clickable=False):
+    def click_register_button(self, wait_to_be_clickable=False):
         if wait_to_be_clickable is True:
             WebDriverWait(self.browser, 100).until(EC.element_to_be_clickable((self.REGISTER_BUTTON)))
         register_button = self.browser.find_element(*self.REGISTER_BUTTON)
@@ -64,7 +64,8 @@ class RegisterPage:
         return self.browser.current_url
 
     def get_error_message(self, error_message):
-        WebDriverWait(self.browser, 20).until(EC.text_to_be_present_in_element(self.ERROR_MESSAGE_CLASS_NAME, error_message))
+        WebDriverWait(self.browser, 20).until(
+            EC.text_to_be_present_in_element(self.ERROR_MESSAGE_CLASS_NAME, error_message))
         return self.browser.find_element(*self.ERROR_MESSAGE_CLASS_NAME).text
 
     def get_all_error_messages(self):
@@ -73,9 +74,9 @@ class RegisterPage:
         return list(map(lambda item: item.text, elements))
 
     def get_api_validation_error(self, error_message):
-        WebDriverWait(self.browser, 20).until(EC.text_to_be_present_in_element(self.VALIDATION_ERROR_CLASS_NAME, error_message))
+        WebDriverWait(self.browser, 20).until(
+            EC.text_to_be_present_in_element(self.VALIDATION_ERROR_CLASS_NAME, error_message))
         return self.browser.find_element(*self.VALIDATION_ERROR_CLASS_NAME).text
 
     def wait_for_url_to_contain_login(self):
         WebDriverWait(self.browser, 100).until(EC.url_contains('login'))
-
